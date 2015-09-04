@@ -1,13 +1,21 @@
-# generator-mjnm
+# <%= name %>
 
-> My personal generator for node modules
+>  <%= description %>
 
 [![Build Status][travis_badge]][travis]
 
 ## Installation
 
 ```sh
-yo mjnm
+npm install <%= name %>
+```
+
+## Usage
+
+```sh
+var <%= varName %> = require('<%= name %>');
+
+<%= varName %>();
 ```
 
 ## Running Tests
@@ -22,5 +30,5 @@ yo mjnm
 1. Push to the branch (`git push origin my-new-feature`)
 1. Create new Pull Request
 
-[travis]: https://travis-ci.org/marcioj/generator-mjnm
-[travis_badge]: https://api.travis-ci.org/marcioj/generator-mjnm.svg?branch=master
+[travis]: https://travis-ci.org/<%= githubAccount %>/<%= name %>
+[travis_badge]: https://api.travis-ci.org/<%= githubAccount %>/<%= name %>.svg?branch=master
