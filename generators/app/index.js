@@ -97,13 +97,18 @@ module.exports = yeoman.generators.Base.extend({
     );
 
     this.fs.copy(
+      this.templatePath('npmignore'),
+      this.destinationPath('.npmignore')
+    );
+
+    this.fs.copy(
       this.templatePath('travis.yml'),
       this.destinationPath('.travis.yml')
     );
 
     this.fs.copyTpl(
-      this.templatePath('tests/*'),
-      this.destinationPath('tests'),
+      this.templatePath('test/*'),
+      this.destinationPath('test'),
       {
         name: props.name,
         varName: _.camelCase(props.name)
@@ -122,8 +127,8 @@ module.exports = yeoman.generators.Base.extend({
     );
 
     this.fs.copyTpl(
-      this.templatePath('lib/index.js'),
-      this.destinationPath('lib/index.js'),
+      this.templatePath('src/index.js'),
+      this.destinationPath('src/index.js'),
       {
         varName: _.camelCase(props.name)
       }
@@ -141,13 +146,13 @@ module.exports = yeoman.generators.Base.extend({
         url: props.authorUrl
       },
       files: [
-        'dist'
+        'lib'
       ],
-      main: 'dist/index.js',
+      main: 'lib/index.js',
       keywords: props.keywords,
       scripts: {
-        test: 'mocha --require babel-core/register --reporter spec tests/**/*-test.js',
-        prepublish: 'babel lib --out-dir dist --copy-files'
+        test: 'mocha --require babel-core/register --reporter spec test/**/*-test.js',
+        prepublish: 'babel src --out-dir lib --copy-files'
       },
       devDependencies: {
         'babel-core': '^5.8.0',

@@ -24,9 +24,11 @@ describe('mjnm:app', function () {
     assert.file([
       'package.json',
       '.travis.yml',
+      '.npmignore',
+      '.gitignore',
       'README.md',
-      'tests/index-test.js',
-      'lib/index.js'
+      'test/index-test.js',
+      'src/index.js'
     ]);
   });
 });
