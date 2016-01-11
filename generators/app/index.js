@@ -140,6 +140,10 @@ module.exports = yeoman.generators.Base.extend({
       description: props.description,
       homepage: props.homepage,
       repository: props.repository,
+      engines: {
+        node: '>=0.12',
+        npm: '^3.0.0'
+      },
       author: {
         name: props.authorName,
         email: props.authorEmail,
@@ -148,28 +152,34 @@ module.exports = yeoman.generators.Base.extend({
       files: [
         'lib'
       ],
+      license: 'MIT',
       main: 'lib/index.js',
       keywords: props.keywords,
       scripts: {
+        build: 'babel src --out-dir lib --copy-files',
+        prepublish: 'npm run build',
         test: 'mocha --require babel-core/register --reporter spec test/**/*-test.js',
-        prepublish: 'babel src --out-dir lib --copy-files'
+        watch: 'npm test -- -w'
       },
       devDependencies: {
         'babel-core': '^5.8.0',
-        'mocha': '^2.3.0',
-        'chai': '^3.2.0'
+        'chai': '^3.2.0',
+        'mocha': '^2.3.0'
       }
     };
 
     this.fs.writeJSON('package.json', pkg);
   },
   install: function () {
-    this.npmInstall();
+    this.npmInstall(null, { silent: true });
+    this.spawnCommand('npm', ['shrinkwrap', '--silent']);
   },
   end: function () {
-    this.spawnCommand('git', ['init']);
-
     var repoSSH = 'git@github.com:' + this.props.repository + '.git';
+
+    this.spawnCommand('git', ['init', '-q']);
     this.spawnCommand('git', ['remote', 'add', 'origin', repoSSH]);
+    this.spawnCommand('git', ['add', '.']);
+    this.spawnCommand('git', ['commit', '-m', 'Initial commit', '-q']);
   }
 });
