@@ -92,6 +92,11 @@ module.exports = yeoman.generators.Base.extend({
     var props = this.props;
 
     this.fs.copy(
+      this.templatePath('eslintrc'),
+      this.destinationPath('.eslintrc')
+    );
+
+    this.fs.copy(
       this.templatePath('babelrc'),
       this.destinationPath('.babelrc')
     );
@@ -162,14 +167,18 @@ module.exports = yeoman.generators.Base.extend({
       keywords: props.keywords,
       scripts: {
         build: 'babel src --out-dir lib --copy-files',
+        lint: 'eslint src test',
+        mocha: 'mocha --require babel-core/register --reporter spec test/**/*-test.js',
         prepublish: 'npm run build',
-        test: 'mocha --require babel-core/register --reporter spec test/**/*-test.js',
-        watch: 'npm test -- -w'
+        test: 'npm run lint && npm run mocha',
+        watch: 'npm run mocha -- -w'
       },
       devDependencies: {
         'babel-core': '^6.4.0',
+        'babel-eslint': '^5.0.0-beta6',
         'babel-preset-es2015': '^6.3.13',
         'chai': '^3.2.0',
+        'eslint': '^1.10.3',
         'mocha': '^2.3.0'
       }
     };

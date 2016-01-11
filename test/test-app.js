@@ -24,6 +24,7 @@ describe('mjnm:app', function () {
     assert.file([
       'package.json',
       '.travis.yml',
+      '.eslintrc',
       '.npmignore',
       '.gitignore',
       '.babelrc',
