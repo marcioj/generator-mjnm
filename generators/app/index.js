@@ -92,6 +92,11 @@ module.exports = yeoman.generators.Base.extend({
     var props = this.props;
 
     this.fs.copy(
+      this.templatePath('babelrc'),
+      this.destinationPath('.babelrc')
+    );
+
+    this.fs.copy(
       this.templatePath('gitignore'),
       this.destinationPath('.gitignore')
     );
@@ -162,7 +167,8 @@ module.exports = yeoman.generators.Base.extend({
         watch: 'npm test -- -w'
       },
       devDependencies: {
-        'babel-core': '^5.8.0',
+        'babel-core': '^6.4.0',
+        'babel-preset-es2015': '^6.3.13',
         'chai': '^3.2.0',
         'mocha': '^2.3.0'
       }

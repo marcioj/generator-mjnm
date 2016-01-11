@@ -26,6 +26,7 @@ describe('mjnm:app', function () {
       '.travis.yml',
       '.npmignore',
       '.gitignore',
+      '.babelrc',
       'README.md',
       'test/index-test.js',
       'src/index.js'
