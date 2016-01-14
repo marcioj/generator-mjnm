@@ -186,15 +186,16 @@ module.exports = yeoman.generators.Base.extend({
     this.fs.writeJSON('package.json', pkg);
   },
   install: function () {
-    this.npmInstall(null, { silent: true });
-    this.spawnCommand('npm', ['shrinkwrap', '--silent']);
+    this.npmInstall(null, { silent: true }, function () {
+      this.spawnCommandSync('npm', ['shrinkwrap', '--silent']);
+    }.bind(this));
   },
   end: function () {
     var repoSSH = 'git@github.com:' + this.props.repository + '.git';
 
-    this.spawnCommand('git', ['init', '-q']);
-    this.spawnCommand('git', ['remote', 'add', 'origin', repoSSH]);
-    this.spawnCommand('git', ['add', '.']);
-    this.spawnCommand('git', ['commit', '-m', 'Initial commit', '-q']);
+    this.spawnCommandSync('git', ['init', '-q']);
+    this.spawnCommandSync('git', ['remote', 'add', 'origin', repoSSH]);
+    this.spawnCommandSync('git', ['add', '.']);
+    this.spawnCommandSync('git', ['commit', '-m', 'Initial commit', '-q']);
   }
 });
