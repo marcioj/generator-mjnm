@@ -1,5 +1,5 @@
 import chai from 'chai';
-import <%= varName %> from '../lib';
+import <%= varName %> from '../src';
 
 const expect = chai.expect;
 

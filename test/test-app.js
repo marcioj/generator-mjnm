@@ -30,6 +30,7 @@ describe('mjnm:app', function () {
       '.babelrc',
       'README.md',
       'test/index-test.js',
+      'test/mocha.opts',
       'src/index.js'
     ]);
   });

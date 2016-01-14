@@ -57,27 +57,27 @@ module.exports = yeoman.generators.Base.extend({
         name: 'description',
         message: 'Description'
       },
-                     {
-                       name: 'githubAccount',
-                       message: 'GitHub username or organization',
-                       default: this.props.githubAccount
-                     }, {
-                       name: 'authorName',
-                       message: 'Author\'s Name',
-                       default: this.props.authorName
-                     }, {
-                       name: 'authorEmail',
-                       message: 'Author\'s Email',
-                       default: this.props.authorEmail
-                     }, {
-                       name: 'authorUrl',
-                       message: 'Author\'s Homepage',
-                       default: this.props.authorUrl
-                     }, {
-                       name: 'keywords',
-                       message: 'Package keywords (comma to split)',
-                       filter: _.words
-                     }];
+      {
+        name: 'githubAccount',
+        message: 'GitHub username or organization',
+        default: this.props.githubAccount
+      }, {
+        name: 'authorName',
+        message: 'Author\'s Name',
+        default: this.props.authorName
+      }, {
+        name: 'authorEmail',
+        message: 'Author\'s Email',
+        default: this.props.authorEmail
+      }, {
+        name: 'authorUrl',
+        message: 'Author\'s Homepage',
+        default: this.props.authorUrl
+      }, {
+        name: 'keywords',
+        message: 'Package keywords (comma to split)',
+        filter: _.words
+      }];
 
       this.prompt(prompts, function (props) {
         this.props = _.merge(this.props, props);
@@ -168,10 +168,10 @@ module.exports = yeoman.generators.Base.extend({
       scripts: {
         build: 'babel src --out-dir lib --copy-files',
         lint: 'eslint src test',
-        mocha: 'mocha --require babel-core/register --reporter spec test/**/*-test.js',
         prepublish: 'npm run build',
-        test: 'npm run lint && npm run mocha',
-        watch: 'npm run mocha -- -w'
+        test: 'npm run lint && npm run test:coverage',
+        'test:coverage': 'nyc --require babel-core/register --reporter html mocha && nyc check-coverage --branches 90',
+        'watch': 'mocha -w'
       },
       devDependencies: {
         'babel-core': '^6.4.0',
@@ -179,7 +179,8 @@ module.exports = yeoman.generators.Base.extend({
         'babel-preset-es2015': '^6.3.13',
         'chai': '^3.2.0',
         'eslint': '^1.10.3',
-        'mocha': '^2.3.0'
+        'mocha': '^2.3.0',
+        'nyc': '^5.3.0'
       }
     };
 
